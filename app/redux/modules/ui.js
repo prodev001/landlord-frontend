@@ -18,7 +18,7 @@ import {
 
 const initialState = {
   /* Settings for Themes and layout */
-  theme: 'skyBlueTheme',
+  theme: 'leapTheme',
   direction: 'ltr',
   type: 'light', // light or dark
   gradient: true, // true or false
@@ -27,8 +27,8 @@ const initialState = {
   layout: 'left-sidebar', // big-sidebar, left-sidebar, top-navigation, mega-menu
   /* End settings */
   palette: List([
+    { name: 'Leap Easy', value: 'leapTheme' },
     { name: 'Ocean Sky', value: 'skyBlueTheme' },
-    { name: 'Purple', value: 'purpleRedTheme' },
     { name: 'Rose Gold', value: 'magentaTheme' },
     { name: 'Leaf', value: 'cyanTheme' },
     { name: 'Mint', value: 'blueCyanTheme' },

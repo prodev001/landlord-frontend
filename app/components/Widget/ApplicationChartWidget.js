@@ -31,13 +31,34 @@ import {
   CartesianAxis,
   Tooltip,
   ResponsiveContainer,
-  PieChart, Pie, Cell,
+  RadialBarChart,
+  RadialBar,
   Legend
 } from 'recharts';
 import { dataApp1, dataApp2 } from 'leap-api/chart/chartData';
-import { data2, data3 } from 'leap-api/chart/chartMiniData';
 import styles from './widget-jss';
 import PapperBlock from '../PapperBlock/PapperBlock';
+
+const radialData = [
+  {
+    name: 'past',
+    uv: 500,
+    pv: 2400,
+    fill: '#83a6ed'
+  },
+  {
+    name: 'current',
+    uv: 1000,
+    pv: 2400,
+    fill: '#8884d8'
+  },
+  {
+    name: 'future',
+    uv: 800,
+    pv: 2400,
+    fill: '#ffc658'
+  },
+];
 
 const color = ({
   primary: colorfull[6],
@@ -46,6 +67,12 @@ const color = ({
   fourth: colorfull[4],
   five: colorfull[0]
 });
+
+const legendStyle = {
+  top: 0,
+  left: 350,
+  lineHeight: '24px'
+};
 
 const colorsPie = [blue[500], pink[500], cyan[500], purple[500]];
 
@@ -116,24 +143,23 @@ function ApplicationChartWidget(props) {
           </Typography>
           <Divider className={classes.divider} />
           <Grid container className={classes.secondaryWrap}>
-            <PieChart width={300} height={300}>
-              <Pie
-                data={data3}
-                cx={130}
-                cy={120}
-                dataKey="value"
-                innerRadius={40}
-                outerRadius={80}
-                fill="#FFFFFF"
-                paddingAngle={5}
-                label
-              >
-                {
-                  data3.map((entry, index) => <Cell key={index.toString()} fill={colorsPie[index % colorsPie.length]} />)
-                }
-              </Pie>
-              <Legend iconType="circle" verticalALign="bottom" iconSize={10} />
-            </PieChart>
+            <RadialBarChart width={400} height={300} cx={150} cy={150} innerRadius={50} outerRadius={140} barSize={30} data={radialData}>
+              <RadialBar
+                minAngle={15}
+                label={{ position: 'insideStart', fill: '#fff' }}
+                background
+                clockWise
+                dataKey="uv"
+              />
+              <Legend
+                iconSize={20}
+                width={120}
+                height={140}
+                layout="vertical"
+                verticalAlign="middle"
+                wrapperStyle={legendStyle}
+              />
+            </RadialBarChart>
           </Grid>
         </Grid>
       </Grid>

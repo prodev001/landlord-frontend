@@ -16,7 +16,8 @@ function PapperBlock(props) {
     noMargin,
     colorMode,
     overflowX,
-    icon
+    icon,
+    datepicker
   } = props;
   return (
     <div>
@@ -33,6 +34,7 @@ function PapperBlock(props) {
               {desc}
             </Typography>
           </div>
+          {datepicker}
         </div>
         <section className={classNames(classes.content, whiteBg && classes.whiteBg, overflowX && classes.overflowX)}>
           {children}
@@ -52,6 +54,7 @@ PapperBlock.propTypes = {
   colorMode: PropTypes.bool,
   noMargin: PropTypes.bool,
   overflowX: PropTypes.bool,
+  datepicker: PropTypes.object
 };
 
 PapperBlock.defaultProps = {

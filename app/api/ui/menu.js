@@ -14,23 +14,23 @@ const menuData = [
       {
         key: 'landlord',
         name: 'Landlord',
-        link: '/dashboard/report/landlord',
+        link: '/report/landlord',
         icon: 'ion-ios-pie-outline',
       },
       {
         key: 'vp',
         name: 'Vice President',
-        link: '/dashboard/report/vice-president'
+        link: '/report/vice-president'
       },
       {
         key: 'rm',
         name: 'Regional Manager',
-        link: '/dashboard/report/regional-manager'
+        link: '/report/regional-manager'
       },
       {
         key: 'pm',
         name: 'Property Manager',
-        link: '/dashboard/report/property-manager'
+        link: '/report/property-manager'
       },
     ]
   },
@@ -42,23 +42,23 @@ const menuData = [
       {
         key: 'buildings',
         name: 'Buildings',
-        link: '/dashboard/property/buildings'
+        link: '/property/buildings'
       },
       {
         key: 'applications',
         name: 'Applications',
-        link: '/dashboard/property/applications'
+        link: '/property/applications'
       },
       {
         key: 'policies',
         name: 'Policies',
-        link: '/dashboard/property/policies'
+        link: '/property/policies'
 
       },
       {
         key: 'claims',
         name: 'Claims',
-        link: '/dashboard/property/claims'
+        link: '/property/claims'
 
       },
     ]
@@ -71,22 +71,22 @@ const menuData = [
       {
         key: 'll',
         name: 'Landlord',
-        link: '/dashboard/user/landlord'
+        link: '/user/landlord'
       },
       {
         key: 'vp',
         name: 'Vice President',
-        link: '/dashboard/user/vicep-resident'
+        link: '/user/vicep-resident'
       },
       {
         key: 'rm',
         name: 'Regional Manager',
-        link: '/dashboard/user/regional-manager'
+        link: '/user/regional-manager'
       },
       {
         key: 'pm',
         name: 'Property Manager',
-        link: '/dashboard/user/property-manager'
+        link: '/user/property-manager'
       }
     ]
   }

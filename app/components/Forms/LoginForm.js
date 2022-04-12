@@ -1,11 +1,11 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
+import { NavLink } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form/immutable';
 import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
 import IconButton from '@material-ui/core/IconButton';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
@@ -16,11 +16,9 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import ArrowForward from '@material-ui/icons/ArrowForward';
 import Paper from '@material-ui/core/Paper';
 import Icon from '@material-ui/core/Icon';
-import Hidden from '@material-ui/core/Hidden';
-import brand from 'leap-api/dummy/brand';
-import logo from 'leap-images/logo.png';
-import { TextFieldRedux, CheckboxRedux } from './ReduxFormMUI';
 import styles from './user-jss';
+import { TextFieldRedux, CheckboxRedux } from './ReduxFormMUI';
+
 // validation functions
 const required = value => (value === null ? 'Required' : undefined);
 const email = value => (
@@ -33,7 +31,7 @@ const LinkBtn = React.forwardRef(function LinkBtn(props, ref) { // eslint-disabl
   return <NavLink to={props.to} {...props} innerRef={ref} />; // eslint-disable-line
 });
 
-function LoginForm(props) {
+function LoginFormV2(props) {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => {
@@ -51,31 +49,19 @@ function LoginForm(props) {
     submitting,
     deco,
   } = props;
-
   return (
-    <Fragment>
-      <Hidden mdUp>
-        <NavLink to="/" className={classNames(classes.brand, classes.outer)}>
-          <img src={logo} alt={brand.name} />
-          {brand.name}
-        </NavLink>
-      </Hidden>
-      <Paper className={classNames(classes.paperWrap, deco && classes.petal)}>
-        <Hidden smDown>
-          <div className={classes.topBar}>
-            <NavLink to="/" className={classes.brand}>
-              <img src={logo} alt={brand.name} />
-            </NavLink>
-            <Button size="small" className={classes.buttonLink} component={LinkBtn} to="/register">
-              <Icon className={classes.icon}>arrow_forward</Icon>
-              Create new account
-            </Button>
-          </div>
-        </Hidden>
+    <Paper className={classNames(classes.sideWrap, deco && classes.petal)}>
+      <div>
+        <div className={classes.topBar}>
+          <Button size="small" className={classes.buttonLink} component={LinkBtn} to="/register">
+            <Icon className={classes.icon}>arrow_forward</Icon>
+            Create new account
+          </Button>
+        </div>
         <Typography variant="h4" className={classes.title} gutterBottom>
           Sign In
         </Typography>
-        <section className={classes.formWrap}>
+        <section className={classes.pageFormSideWrap}>
           <form onSubmit={handleSubmit}>
             <div>
               <FormControl className={classes.formControl}>
@@ -121,19 +107,19 @@ function LoginForm(props) {
               <Button size="small" component={LinkBtn} to="/reset-password" className={classes.buttonLink}>Forgot Password</Button>
             </div>
             <div className={classes.btnArea}>
-              <Button variant="contained" color="primary" size="large" type="submit">
+              <Button variant="contained" fullWidth color="primary" size="large" type="submit">
                 Continue
                 <ArrowForward className={classNames(classes.rightIcon, classes.iconSmall)} disabled={submitting || pristine} />
               </Button>
             </div>
           </form>
         </section>
-      </Paper>
-    </Fragment>
+      </div>
+    </Paper>
   );
 }
 
-LoginForm.propTypes = {
+LoginFormV2.propTypes = {
   classes: PropTypes.object.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   pristine: PropTypes.bool.isRequired,
@@ -144,7 +130,7 @@ LoginForm.propTypes = {
 const LoginFormReduxed = reduxForm({
   form: 'immutableExample',
   enableReinitialize: true,
-})(LoginForm);
+})(LoginFormV2);
 
 const reducerLogin = 'login';
 const reducerUi = 'ui';

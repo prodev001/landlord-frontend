@@ -54,13 +54,15 @@ const styles = theme => ({
   },
   sideWrap: {
     ...wrapper(theme, 1),
+    padding: theme.spacing(6),
     height: '100%',
     borderRadius: 0,
     [theme.breakpoints.up('md')]: {
       width: 480,
     },
     '& $topBar': {
-      marginBottom: theme.spacing(4)
+      marginBottom: theme.spacing(4),
+      marginTop: theme.spacing(8)
     }
   },
   fullWrap: {
@@ -80,7 +82,7 @@ const styles = theme => ({
   icon: {},
   topBar: {
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'end',
     '& $icon': {
       marginRight: theme.spacing(1)
     },

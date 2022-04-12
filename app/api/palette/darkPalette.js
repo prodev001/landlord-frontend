@@ -1,5 +1,5 @@
 const darkPalette = {
-  purpleRedTheme: {
+  leapTheme: {
     palette: {
       primary: {
         light: '#EDE7F6',

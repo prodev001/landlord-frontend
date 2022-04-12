@@ -1,5 +1,5 @@
 module.exports = {
-  purpleRedTheme: {
+  leapTheme: {
     palette: {
       primary: {
         light: '#EDE7F6',

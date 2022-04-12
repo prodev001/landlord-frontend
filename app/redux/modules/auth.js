@@ -4,6 +4,7 @@ import types from '../constants/authConstants';
 const INITIAL_STATE = {
   currentUser: null,
   error: null,
+  user_role: Map()
 };
 
 const initialImmutableState = fromJS(INITIAL_STATE);
@@ -22,7 +23,7 @@ const authReducer = (state = initialImmutableState, action = {}) => {
         mutableState.set('error', fromJS(action.payload.data));
       });
     case types.LOG_OUT:
-      return INITIAL_STATE;
+      return initialImmutableState;
     default:
       return state;
   }

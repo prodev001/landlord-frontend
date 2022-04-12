@@ -11,7 +11,6 @@ window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
 
 function App() {
   const user = useSelector(state => state.getIn(['auth', 'currentUser']));
-
   return (
     <ThemeWrapper>
       <Router>
@@ -20,6 +19,7 @@ function App() {
         </Route>
         <Route exact path="/login" component={Auth} />
         <Route exact path="/register" component={Auth} />
+        <Route exact path="/reset-password" component={Auth} />
       </Router>
     </ThemeWrapper>
   );

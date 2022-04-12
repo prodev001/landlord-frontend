@@ -15,8 +15,8 @@ import {
   SixmonthsChartWidget,
   CounterRatetWidget
 } from 'leap-components';
-import { Theme } from '@fullcalendar/core';
 import DashboardTable from './dashboardTable';
+import RadialBarChart from './RadialBarChart';
 import styles from './dashboard-jss';
 
 function Dahboard(props) {
@@ -32,6 +32,7 @@ function Dahboard(props) {
       <Grid container className={classes.root}>
         <BuildingCounterChartWidget />
       </Grid>
+      <RadialBarChart />
       <Divider className={classes.divider} />
       <SixmonthsChartWidget />
       <Divider className={classes.divider} />

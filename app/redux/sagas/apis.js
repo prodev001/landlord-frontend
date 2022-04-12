@@ -15,10 +15,6 @@ const getAuthHeader = () => {
 };
 
 export const logIn = async (email, password) => {
-  // const data = {
-  //   username: 'landlord',
-  //   password: '123123'
-  // };
   const response = await instance.post('/auth/signin', { email, password });
   return response.data;
 };

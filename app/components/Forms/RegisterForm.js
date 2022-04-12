@@ -5,6 +5,8 @@ import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form/immutable';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -15,7 +17,9 @@ import Icon from '@material-ui/core/Icon';
 import Hidden from '@material-ui/core/Hidden';
 import brand from 'leap-api/dummy/brand';
 import logo from 'leap-images/logo.png';
-import { TextFieldRedux, CheckboxRedux, RadioRedux } from './ReduxFormMUI';
+import {
+  TextFieldRedux, CheckboxRedux, RadioRedux, SelectRedux
+} from './ReduxFormMUI';
 import styles from './user-jss';
 
 // validation functions
@@ -46,113 +50,110 @@ function RegisterForm(props) {
     deco
   } = props;
   return (
-    <Fragment>
-      <Hidden mdUp>
-        <NavLink to="/" className={classNames(classes.brand, classes.outer)}>
-          <img src={logo} alt={brand.name} />
-        </NavLink>
-      </Hidden>
-      <Paper className={classNames(classes.paperWrap, deco && classes.petal)}>
-        <Hidden smDown>
-          <div className={classes.topBar}>
-            <NavLink to="/" className={classes.brand}>
-              <img src={logo} alt={brand.name} />
-            </NavLink>
-            <Button size="small" className={classes.buttonLink} component={LinkBtn} to="/login">
-              <Icon className={classes.icon}>arrow_forward</Icon>
+    <Paper className={classNames(classes.sideWrap, deco && classes.petal)}>
+      <Hidden smDown>
+        <div className={classes.topBar}>
+          <Button size="small" className={classes.buttonLink} component={LinkBtn} to="/login">
+            <Icon className={classes.icon}>arrow_forward</Icon>
               Already have account ?
+          </Button>
+        </div>
+      </Hidden>
+      <Typography variant="h4" className={classes.title} gutterBottom>
+          Register
+      </Typography>
+      <section className={classes.pageFormSideWrap}>
+        <form onSubmit={handleSubmit}>
+          <div className="d-flex align-items-center">
+            <FormControl className={classes.formControl}>
+              <InputLabel htmlFor="age-native-simple">Role</InputLabel>
+              <Field
+                name="role"
+                component={SelectRedux}
+                placeholder="Role"
+                label="Role"
+                type="text"
+                required
+                className={classes.field}
+              >
+                <MenuItem value="Landlord">Landlord</MenuItem>
+                <MenuItem value="Vice President">Vice President</MenuItem>
+                <MenuItem value="Regional Manager">Regional Manager</MenuItem>
+                <MenuItem value="Property Manager">Property Manager</MenuItem>
+              </Field>
+            </FormControl>
+          </div>
+          <div>
+            <FormControl className={classes.formControl}>
+              <Field
+                name="name"
+                component={TextFieldRedux}
+                placeholder="Username"
+                label="Username"
+                type="text"
+                required
+                className={classes.field}
+              />
+            </FormControl>
+          </div>
+          <div>
+            <FormControl className={classes.formControl}>
+              <Field
+                name="email"
+                component={TextFieldRedux}
+                placeholder="Your Email"
+                type="email"
+                label="Your Email"
+                required
+                validate={[required, email]}
+                className={classes.field}
+              />
+            </FormControl>
+          </div>
+          <div>
+            <FormControl className={classes.formControl}>
+              <Field
+                name="password"
+                component={TextFieldRedux}
+                type="password"
+                label="Your Password"
+                required
+                validate={[required, passwordsMatch]}
+                className={classes.field}
+              />
+            </FormControl>
+          </div>
+          <div>
+            <FormControl className={classes.formControl}>
+              <Field
+                name="passwordConfirm"
+                component={TextFieldRedux}
+                type="password"
+                label="Re-type Password"
+                required
+                validate={[required, passwordsMatch]}
+                className={classes.field}
+              />
+            </FormControl>
+          </div>
+          <div>
+            <FormControlLabel
+              control={(
+                <Field name="agree" component={CheckboxRedux} required className={classes.agree} />
+              )}
+              label="Agree with"
+            />
+            <a href="#" className={classes.link}>Terms &amp; Condition</a>
+          </div>
+          <div className={classes.btnArea}>
+            <Button variant="contained" color="primary" type="submit">
+                  Continue
+              <ArrowForward className={classNames(classes.rightIcon, classes.iconSmall)} disabled={submitting || pristine} />
             </Button>
           </div>
-        </Hidden>
-        <Typography variant="h4" className={classes.title} gutterBottom>
-          Register
-        </Typography>
-        <section className={classes.formWrap}>
-          <form onSubmit={handleSubmit}>
-            <div>
-              <Field name="role" component={RadioRedux} required defaultChecked type="radio" value="Landlord" />
-                  Landlord
-              <Field name="role" component={RadioRedux} required type="radio" value="Vice President" />
-                  Vice President
-            </div>
-            <div>
-              <Field name="role" component={RadioRedux} required type="radio" value="Regional Manager" />
-                  Regional Manager
-              <Field name="role" component={RadioRedux} required type="radio" value="Property Manager" />
-                  Property Manager
-            </div>
-            <div>
-              <FormControl className={classes.formControl}>
-                <Field
-                  name="name"
-                  component={TextFieldRedux}
-                  placeholder="Username"
-                  label="Username"
-                  type="text"
-                  required
-                  className={classes.field}
-                />
-              </FormControl>
-            </div>
-            <div>
-              <FormControl className={classes.formControl}>
-                <Field
-                  name="email"
-                  component={TextFieldRedux}
-                  placeholder="Your Email"
-                  type="email"
-                  label="Your Email"
-                  required
-                  validate={[required, email]}
-                  className={classes.field}
-                />
-              </FormControl>
-            </div>
-            <div>
-              <FormControl className={classes.formControl}>
-                <Field
-                  name="password"
-                  component={TextFieldRedux}
-                  type="password"
-                  label="Your Password"
-                  required
-                  validate={[required, passwordsMatch]}
-                  className={classes.field}
-                />
-              </FormControl>
-            </div>
-            <div>
-              <FormControl className={classes.formControl}>
-                <Field
-                  name="passwordConfirm"
-                  component={TextFieldRedux}
-                  type="password"
-                  label="Re-type Password"
-                  required
-                  validate={[required, passwordsMatch]}
-                  className={classes.field}
-                />
-              </FormControl>
-            </div>
-            <div>
-              <FormControlLabel
-                control={(
-                  <Field name="agree" component={CheckboxRedux} required className={classes.agree} />
-                )}
-                label="Agree with"
-              />
-              <a href="#" className={classes.link}>Terms &amp; Condition</a>
-            </div>
-            <div className={classes.btnArea}>
-              <Button variant="contained" color="primary" type="submit">
-                  Continue
-                <ArrowForward className={classNames(classes.rightIcon, classes.iconSmall)} disabled={submitting || pristine} />
-              </Button>
-            </div>
-          </form>
-        </section>
-      </Paper>
-    </Fragment>
+        </form>
+      </section>
+    </Paper>
   );
 }
 

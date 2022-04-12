@@ -1,15 +1,15 @@
 const lightPalette = {
-  purpleRedTheme: {
+  leapTheme: {
     palette: {
       primary: {
         light: '#EDE7F6',
-        main: '#673AB7',
+        main: '#702572',
         dark: '#512DA8',
         contrastText: '#fff',
       },
       secondary: {
         light: '#FCE4EC',
-        main: '#EC407A',
+        main: '#702572',
         dark: '#C2185B',
         contrastText: '#fff',
       },

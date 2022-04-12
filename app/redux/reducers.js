@@ -10,9 +10,8 @@ import history from 'utils/history';
 import languageProviderReducer from 'containers/LanguageProvider/reducer';
 import uiReducer from './modules/ui';
 import initval from './modules/initForm';
-import login from './modules/login';
 import auth from './modules/auth';
-import property from './modules/property';
+// import property from './modules/property';
 /**
  * Merges the main reducer with the router state and dynamically injected reducers
  */
@@ -21,9 +20,8 @@ export default function createReducer(injectedReducers = {}) {
     form,
     ui: uiReducer,
     initval,
-    login,
     auth,
-    property,
+    // property,
     language: languageProviderReducer,
     router: connectRouter(history),
     ...injectedReducers,

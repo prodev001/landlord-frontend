@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
@@ -22,7 +23,9 @@ import dummy from 'leap-api/dummy/dummyContents';
 import messageStyles from 'leap-styles/Messages.scss';
 import avatarApi from 'leap-api/images/avatars';
 import link from 'leap-api/ui/link';
+import { logInStart } from 'leap-redux/actions/authActions';
 import styles from './header-jss';
+import { logOut } from '../../redux/actions/authActions';
 
 function UserMenu(props) {
   const [menuState, setMenuState] = useState({
@@ -38,12 +41,15 @@ function UserMenu(props) {
     });
   };
 
+  const dispatch = useDispatch();
   const handleClose = () => {
+    dispatch(logOut());
     setMenuState({ anchorEl: null, openMenu: null });
   };
 
   const { classes, dark } = props;
   const { anchorEl, openMenu } = menuState;
+
   return (
     <div>
       <IconButton
@@ -158,7 +164,7 @@ function UserMenu(props) {
           </ListItemIcon>
         </MenuItem>
         <Divider />
-        <MenuItem onClick={handleClose} component={Link} to="/">
+        <MenuItem onClick={handleClose} component={Link} to="/login">
           <ListItemIcon>
             <ExitToApp />
           </ListItemIcon>

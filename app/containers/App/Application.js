@@ -28,7 +28,7 @@ const Application = () => {
         <Route exact path="/report/vice-president" component={VicePresidentReportPage} />
         <Route exact path="/report/regional-manager" component={RegionalManagerReportPage} />
         <Route exact path="/report/property-manager" component={PropertyManagerPage} />
-        <Route exact path="/" component={DashboardPage} />
+        <Route exact path="/dashboard" component={DashboardPage} />
         <Route component={NotFound} />
       </Switch>
     </Dashboard>
