@@ -1,4 +1,5 @@
 import { fromJS, Map } from 'immutable';
+import { REHYDRATE } from 'redux-persist/lib/constants';
 import { INIT, CLEAR } from '../constants/reduxFormConstants';
 
 const initialState = {
@@ -16,6 +17,8 @@ export default function reducer(state = initialImmutableState, action = {}) {
       return state.withMutations((mutableState) => {
         mutableState.set('formValues', Map());
       });
+    case REHYDRATE:
+      return { ...state, persistedState: action.payload };
     default:
       return state;
   }

@@ -12,9 +12,7 @@ import styles from './widget-jss';
 
 function CounterChartWidget(props) {
   const { classes } = props;
-  const user = useSelector(state => state.getIn(['auth', 'currentUser']));
-  const role = user.get('role');
-  console.log(role, 'adfasdfasdfasdf');
+  const role = 'Admin';
   return (
     <div className={classes.rootCounter}>
       <Grid container spacing={2} justifyContent="center">

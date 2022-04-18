@@ -1,5 +1,20 @@
 import types from '../constants/authConstants';
 
+export const emailVerify = (email) => ({
+  type: types.EMAIL_VERIFY,
+  email,
+});
+
+export const emailVerifySuccess = (res) => ({
+  type: types.EMAIL_VERIFY_SUCCESS,
+  payload: res,
+});
+
+export const emailVerifyFailure = (res) => ({
+  type: types.EMAIL_VERIFY_FAILURE,
+  payload: res,
+});
+
 export const logInStart = (credentials) => ({
   type: types.LOG_IN_START,
   payload: credentials,

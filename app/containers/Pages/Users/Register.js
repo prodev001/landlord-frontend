@@ -14,15 +14,13 @@ import { registerStart } from 'leap-redux/actions/authActions';
 function Register(props) {
   const history = useHistory();
   const dispatch = useDispatch();
-  const user = useSelector(state => state.getIn(['auth', 'currentUser']));
-
+  const currentUser = useSelector(state => state.getIn(['auth', 'currentUser']));
   // Redirect login page to the application pages according to the user role data
   useEffect(() => {
-    console.log(user);
-    if (user) {
+    if (currentUser) {
       history.push('/dashboard');
     }
-  }, [user]);
+  }, [currentUser]);
 
   const submitForm = values => {
     const payload = {

@@ -1,5 +1,5 @@
 import { fromJS, Map } from 'immutable';
-import types from '../constants/authConstants';
+import types from '../constants/propertyConstant';
 
 const INITIAL_STATE = {
   building: {
@@ -31,7 +31,7 @@ const INITIAL_STATE = {
     BILLINGSTATE: 'MN',
     BILLINGCITY: 'Minneapolis'
   },
-  application: {
+  app: {
     STAGE: '00 - Entrata',
     RIDER_ID: 'LEAP-0906433',
     NAME: 'Tinari - 4500 College Avenue',
@@ -62,6 +62,7 @@ const INITIAL_STATE = {
     TOTAL_OF_ACTIVE_LEAP_UNITS: 15,
     ESTIMATED_APPLICANT_DECLINE_RATE: 3.5,
   },
+  claim: null,
   error: null,
 };
 
@@ -69,19 +70,22 @@ const initialImmutableState = fromJS(INITIAL_STATE);
 
 const propertyReducer = (state = initialImmutableState, action = {}) => {
   switch (action.type) {
-    case types.LOG_IN_SUCCESS:
+    case types.SET_BUILDING:
       return state.withMutations((mutableState) => {
-        mutableState.set('currentUser', fromJS(action.payload));
-        mutableState.set('error', Map());
+        mutableState.set('building', fromJS(action.payload));
       });
-    case types.LOG_IN_FAILURE:
-    case types.REGISTER_FAILURE:
+    case types.GET_APP:
       return state.withMutations((mutableState) => {
-        mutableState.set('currentUser', null);
-        mutableState.set('error', fromJS(action.payload.data));
+        mutableState.set('app', fromJS(action.payload));
       });
-    case types.LOG_OUT:
-      return INITIAL_STATE;
+    case types.GET_CLAIM:
+      return state.withMutations((mutableState) => {
+        mutableState.set('claim', fromJS(action.payload));
+      });
+    case types.GET_ERR:
+      return state.withMutations((mutableState) => {
+        mutableState.set('error', fromJS(action.payload));
+      });
     default:
       return state;
   }

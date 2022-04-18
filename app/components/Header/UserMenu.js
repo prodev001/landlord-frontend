@@ -42,8 +42,12 @@ function UserMenu(props) {
   };
 
   const dispatch = useDispatch();
-  const handleClose = () => {
+  const handleLogOut = () => {
     dispatch(logOut());
+    setMenuState({ anchorEl: null, openMenu: null });
+  };
+
+  const handleClose = () => {
     setMenuState({ anchorEl: null, openMenu: null });
   };
 
@@ -164,7 +168,7 @@ function UserMenu(props) {
           </ListItemIcon>
         </MenuItem>
         <Divider />
-        <MenuItem onClick={handleClose} component={Link} to="/login">
+        <MenuItem onClick={handleLogOut} component={Link} to="/login">
           <ListItemIcon>
             <ExitToApp />
           </ListItemIcon>

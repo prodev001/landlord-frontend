@@ -1,20 +1,31 @@
 import {
   all, call, put, takeLatest
 } from 'redux-saga/effects';
-
 import {
   logIn,
-  register
+  register,
+  verifyEmail
 } from './apis';
 import {
+  emailVerifySuccess,
   logInFailure,
   logInSuccess,
   registerFailure,
   registerSuccess,
+  emailVerifyFailure
 } from '../actions/authActions';
 import types from '../constants/authConstants';
 
 const setToken = (token) => localStorage.setItem('token', token);
+
+export function* verifyEmailWithCredential({ email }) {
+  try {
+    const response = yield verifyEmail(email);
+    yield put(emailVerifySuccess(response.userInfo));
+  } catch (error) {
+    yield put(emailVerifyFailure(error.message));
+  }
+}
 
 export function* logInWithCredentials({ payload: { email, password } }) {
   try {
@@ -23,7 +34,8 @@ export function* logInWithCredentials({ payload: { email, password } }) {
     yield put(logInSuccess({
       name: user.username,
       email: user.email,
-      role: user.role
+      role: user.role,
+      landlordId: user.landlord_id
     }));
   } catch (error) {
     yield put(logInFailure(error.response));
@@ -59,10 +71,15 @@ export function* onRegisterSuccess() {
   yield takeLatest(types.REGISTER_SUCCESS, logInAfterRegister);
 }
 
+export function* onVerifyEmail() {
+  yield takeLatest(types.EMAIL_VERIFY, verifyEmailWithCredential);
+}
+
 export function* authSagas() {
   yield all([
     call(onLogInStart),
     call(onRegisterStart),
     call(onRegisterSuccess),
+    call(onVerifyEmail)
   ]);
 }

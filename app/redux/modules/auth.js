@@ -3,14 +3,19 @@ import types from '../constants/authConstants';
 
 const INITIAL_STATE = {
   currentUser: null,
+  userInfo: null,
   error: null,
-  user_role: Map()
 };
 
 const initialImmutableState = fromJS(INITIAL_STATE);
 
 const authReducer = (state = initialImmutableState, action = {}) => {
   switch (action.type) {
+    case types.EMAIL_VERIFY_SUCCESS:
+      return state.withMutations((mutableState) => {
+        mutableState.set('userInfo', fromJS(action.payload));
+        mutableState.set('error', Map());
+      });
     case types.LOG_IN_SUCCESS:
       return state.withMutations((mutableState) => {
         mutableState.set('currentUser', fromJS(action.payload));
@@ -20,7 +25,7 @@ const authReducer = (state = initialImmutableState, action = {}) => {
     case types.REGISTER_FAILURE:
       return state.withMutations((mutableState) => {
         mutableState.set('currentUser', null);
-        mutableState.set('error', fromJS(action.payload.data));
+        mutableState.set('error', fromJS(action.payload));
       });
     case types.LOG_OUT:
       return initialImmutableState;

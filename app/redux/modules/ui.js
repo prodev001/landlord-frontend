@@ -1,4 +1,5 @@
 import { fromJS, List } from 'immutable';
+import { REHYDRATE } from 'redux-persist/lib/constants';
 import MenuContent from 'leap-api/ui/menu';
 import {
   TOGGLE_SIDEBAR,
@@ -145,6 +146,8 @@ export default function reducer(state = initialImmutableState, action = {}) {
       return state.withMutations((mutableState) => {
         mutableState.set('pageLoaded', action.isLoaded);
       });
+    case REHYDRATE:
+      return { ...state, persistedState: action.payload };
     default:
       return state;
   }
