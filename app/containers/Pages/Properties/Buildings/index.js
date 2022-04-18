@@ -14,7 +14,7 @@ const styles = ({
 function Building() {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getBuildingAction());
+    // dispatch(getBuildingAction());
   }, []);
 
   return (

@@ -52,7 +52,7 @@ const Claims = (props) => {
   const [showModal, setModalShow] = useState(false);
   const [tableData, setTableData] = useState([]);
 
-  const property = useSelector(state => state.getIn(['property', 'application']));
+  const property = useSelector(state => state.getIn(['property', 'app']));
   useEffect(() => {
     const data = [];
     for (let index = 0; index < 10; index++) {
@@ -203,7 +203,11 @@ const Claims = (props) => {
   const options = {
     filterType: 'dropdown',
     responsive: 'vertical',
-    print: true,
+    print: false,
+    search: false,
+    filter: false,
+    download: false,
+    viewColumns: false,
     rowsPerPage: 10,
     page: 0,
     selectableRowsHideCheckboxes: true,
