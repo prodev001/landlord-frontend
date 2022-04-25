@@ -1,12 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import brand from 'leap-api/dummy/brand';
-import { Helmet } from 'react-helmet';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import Box from '@material-ui/core/Box';
-import { useSelector } from 'react-redux';
 
 import {
   CounterChartWidget,

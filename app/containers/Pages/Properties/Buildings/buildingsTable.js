@@ -1,45 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
-import { Button, Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import Chip from '@material-ui/core/Chip';
 import MUIDataTable from 'mui-datatables';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import { getBuildingAction } from 'leap-redux/actions/propertyActions';
+import { getAppAction, getClaimAction } from 'leap-redux/actions/propertyActions';
+
 import DetailModal from './Details';
+import { buildingColumns } from '../../help';
+import styles from '../../styles';
 
-
-const styles = theme => ({
-  table: {
-    '& > div': {
-      overflow: 'auto'
-    },
-    '& table': {
-      '& td': {
-        wordBreak: 'keep-all',
-        padding: theme.spacing(1)
-      },
-      [theme.breakpoints.down('md')]: {
-        '& td': {
-          height: 60,
-          padding: theme.spacing(1),
-          overflow: 'hidden',
-          textOverflow: 'ellipsis'
-        }
-      }
-    }
-  },
-  chip: {
-    marginLeft: theme.spacing(3)
-  }
-});
-/*
-  It uses npm mui-datatables. It's easy to use, you just describe columns and data collection.
-  Checkout full documentation here :
-  https://github.com/gregnb/mui-datatables/blob/master/README.md
-*/
 function BuildingsTable(props) {
   const { classes } = props;
 
@@ -47,50 +18,31 @@ function BuildingsTable(props) {
   const [rowData, setRowData] = useState(null);
   const [showModal, setModalShow] = useState(false);
   const [tableData, setTableData] = useState([]);
-  const [numberOfRows, setNumberOfRows] = useState(10);
-  const [currentPage, setCurrentPage] = useState(0);
 
-  const property = useSelector(state => state.getIn(['property', 'building']));
+  const buildings = useSelector(state => state.getIn(['property', 'building']));
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // const data = [];
-    // if (property.toJS().data) {
-    //   property.toJS().data.forEach(building => {
-    //     data.push([
-    //       building.name,
-    //       building.building_type,
-    //       building.phone,
-    //       building.billingStreet,
-    //       building.primary_contact,
-    //       building.email_address,
-    //       building.total_of_units,
-    //       building.student_housing,
-    //       building.landlord_name
-    //     ]);
-    //   });
-    // }
-    const data = [
-      ['HELiX Starkville', 'Auto Enroll', '662 - 617 - 8100', '100 Dawg Drive', 'Edge on Oak - UCAL, LLC', 'minneapoliseastbank@yugo.com', 29, 'TRUE', 'Homestead U'],
-      ['Yugo Minneapolis East Bank - Edge on Oak', 'Event Process', '612-843-2222', '313 Oak Street SE', 'IREC CPP Miss St LLC', 'helixstarkville@livehahu.com', 55, 'FALSE', 'Yugo'],
-      ['HELiX Starkville', 'Auto Enroll', '662 - 617 - 8100', '100 Dawg Drive', 'Edge on Oak - UCAL, LLC', 'minneapoliseastbank@yugo.com', 29, 'TRUE', 'Homestead U'],
-      ['Yugo Minneapolis East Bank - Edge on Oak', 'Event Process', '612-843-2222', '313 Oak Street SE', 'IREC CPP Miss St LLC', 'helixstarkville@livehahu.com', 55, 'FALSE', 'Yugo'],
-      ['HELiX Starkville', 'Auto Enroll', '662 - 617 - 8100', '100 Dawg Drive', 'Edge on Oak - UCAL, LLC', 'minneapoliseastbank@yugo.com', 29, 'TRUE', 'Homestead U'],
-      ['Yugo Minneapolis East Bank - Edge on Oak', 'Event Process', '612-843-2222', '313 Oak Street SE', 'IREC CPP Miss St LLC', 'helixstarkville@livehahu.com', 55, 'FALSE', 'Yugo'],
-      ['HELiX Starkville', 'Auto Enroll', '662 - 617 - 8100', '100 Dawg Drive', 'Edge on Oak - UCAL, LLC', 'minneapoliseastbank@yugo.com', 29, 'TRUE', 'Homestead U'],
-      ['Yugo Minneapolis East Bank - Edge on Oak', 'Event Process', '612-843-2222', '313 Oak Street SE', 'IREC CPP Miss St LLC', 'helixstarkville@livehahu.com', 55, 'FALSE', 'Yugo'],
-      ['HELiX Starkville', 'Auto Enroll', '662 - 617 - 8100', '100 Dawg Drive', 'Edge on Oak - UCAL, LLC', 'minneapoliseastbank@yugo.com', 29, 'TRUE', 'Homestead U'],
-      ['Yugo Minneapolis East Bank - Edge on Oak', 'Event Process', '612-843-2222', '313 Oak Street SE', 'IREC CPP Miss St LLC', 'helixstarkville@livehahu.com', 55, 'FALSE', 'Yugo'],
-      ['HELiX Starkville', 'Auto Enroll', '662 - 617 - 8100', '100 Dawg Drive', 'Edge on Oak - UCAL, LLC', 'minneapoliseastbank@yugo.com', 29, 'TRUE', 'Homestead U'],
-      ['Yugo Minneapolis East Bank - Edge on Oak', 'Event Process', '612-843-2222', '313 Oak Street SE', 'IREC CPP Miss St LLC', 'helixstarkville@livehahu.com', 55, 'FALSE', 'Yugo'],
-      ['HELiX Starkville', 'Auto Enroll', '662 - 617 - 8100', '100 Dawg Drive', 'Edge on Oak - UCAL, LLC', 'minneapoliseastbank@yugo.com', 29, 'TRUE', 'Homestead U'],
-      ['Yugo Minneapolis East Bank - Edge on Oak', 'Event Process', '612-843-2222', '313 Oak Street SE', 'IREC CPP Miss St LLC', 'helixstarkville@livehahu.com', 55, 'FALSE', 'Yugo'],
-    ];
+    const data = [];
+    if (buildings) {
+      for (let index = 0; index < 10; index++) {
+        buildings.toJS().data.forEach(building => {
+          data.push([
+            building.name,
+            building.building_type,
+            building.phone,
+            building.billingStreet,
+            building.primary_contact,
+            building.email_address,
+            building.total_of_units,
+            building.student_housing,
+            building.landlord_name
+          ]);
+        });
+      }
+    }
     setTableData(data);
-    // if() {
-    //   dispatch(getBuildingAction());
-    // }
-  }, [property]);
+  }, [buildings]);
 
   const handleQuickButton = (event) => {
     setAnchorEl(event.currentTarget);
@@ -101,117 +53,43 @@ function BuildingsTable(props) {
     setAnchorEl(null);
   };
 
-
   const handleRowClick = (cellMeta) => {
-    setRowData(tableData[cellMeta.dataIndex]);
+    const buildingId = buildings.toJS().data[cellMeta.dataIndex].building_id;
+    setRowData(buildings.toJS().data[cellMeta.dataIndex]);
+    dispatch(getAppAction(buildingId));
+    dispatch(getClaimAction(buildingId));
   };
 
-  const columns = [
-    {
-      name: 'Account',
-      options: {
-        filter: true,
-      }
-    },
-    {
-      name: 'Building Type',
-      options: {
-        filter: true,
-        customBodyRender: (value) => {
-          if (value === 'Auto Enroll') {
-            return (<Chip label={<Typography variant="h6">AE</Typography>} color="secondary" className={classes.chip} />);
-          }
-          if (value === 'Event Process') {
-            return (<Chip label={<Typography variant="h6">EP</Typography>} color="primary" className={classes.chip} />);
-          }
-          return (<Chip label="Unknown" />);
-        }
-      }
-    },
-    {
-      name: 'Phone',
-      options: {
-        filter: true,
-      }
-    },
-    {
-      name: 'Address',
-      options: {
-        filter: true,
-      }
-    },
-    {
-      name: 'Primary Contact',
-      options: {
-        filter: true,
-      }
-    },
-    {
-      name: 'Email',
-      options: {
-        filter: true,
-      }
-    },
-    {
-      name: 'Total # Units',
-      options: {
-        filter: true,
-      }
-    },
-    {
-      name: 'Students',
-      options: {
-        filter: true,
-      }
-    },
-    {
-      name: 'Landlord',
-      options: {
-        filter: true,
-      }
-    },
-    {
-      name: '',
-      options: {
-        filter: false,
-        customBodyRenderLite: (dataIndex, rowIndex) => (
-          <div>
-            <Button
-              onClick={handleQuickButton}
-              color="primary"
-              variant="contained"
-            >
-                Quick Action
-            </Button>
-          </div>
-        )
-
-      }
-    },
-  ];
+  const handleTablePage = (page, rows) => {
+    console.log((page + 1) * rows);
+    // setCurrentPage(page);
+  };
 
   const options = {
     filterType: 'dropdown',
     responsive: 'vertical',
-    print: false,
-    search: false,
-    filter: false,
-    download: false,
-    viewColumns: false,
     rowsPerPage: 10,
     rowsPerPageOptions: [10, 20, 30, 40, 50],
     page: 0,
+    jumpToPage: true,
+    selectableRows: false,
     onCellClick: ((colData, cellMeta) => {
+      handleRowClick(cellMeta);
       if (cellMeta.colIndex !== 9) {
         setModalShow(true);
       }
-      handleRowClick(cellMeta);
     }),
-    onChangePage(currentPage) {
-      setCurrentPage({ currentPage });
-    },
-    onChangeRowsPerPage(numberOfRows) {
-      setNumberOfRows({ numberOfRows });
+    onTableChange: (action, tableState) => {
+      switch (action) {
+        case 'changePage':
+          handleTablePage(tableState.page, tableState.rowsPerPage);
+          break;
+        case 'changeRowsPerPage':
+          handleTablePage(tableState.page, tableState.rowsPerPage);
+          break;
+        default:
+          console.log('action not handled.');
+      }
     }
   };
 
@@ -220,7 +98,7 @@ function BuildingsTable(props) {
       <MUIDataTable
         title=""
         data={tableData}
-        columns={columns}
+        columns={buildingColumns(handleQuickButton, classes)}
         options={options}
       />
       <Menu

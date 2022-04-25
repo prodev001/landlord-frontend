@@ -1,6 +1,6 @@
 import React from 'react';
 import Outer from '../../Templates/Outer';
-import Login from '../Users/Login';
+import Login from '../Auth/Login';
 
 function LoginDedicated() {
   return (

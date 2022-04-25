@@ -1,4 +1,4 @@
-const userActionTypes = {
+const authActionTypes = {
   LOG_IN_START: 'LOG_IN_START',
   LOG_IN_SUCCESS: 'LOG_IN_SUCCESS',
   LOG_IN_FAILURE: 'LOG_IN_FAILURE',
@@ -11,4 +11,4 @@ const userActionTypes = {
   EMAIL_VERIFY_FAILURE: 'EMAIL_VERIFY_FAILURE'
 };
 
-export default userActionTypes;
+export default authActionTypes;

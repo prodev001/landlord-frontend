@@ -1,3 +1,7 @@
 .recharts-legend-item-text {
     font-size: 12px;
 }
+
+.MuiInputAdornment-root {
+    /* align-items: center !important */
+}

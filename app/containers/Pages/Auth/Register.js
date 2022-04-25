@@ -23,6 +23,7 @@ function Register(props) {
   }, [currentUser]);
 
   const submitForm = values => {
+    console.log('xxxxxx');
     const payload = {
       username: values.get('name'),
       email: values.get('email'),

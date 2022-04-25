@@ -1,10 +1,7 @@
 
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -19,13 +16,13 @@ import Details from './details';
 import Reports from './Reports';
 import Claims from './Claims';
 import Applications from './Applications';
-
+import Policies from './Policies';
 
 const styles = (theme) => ({
   root: {
     margin: 0,
-    padding: theme.spacing(2),
-    marginLeft: theme.spacing(3)
+    padding: theme.spacing(1),
+    marginLeft: theme.spacing(1)
   },
   closeButton: {
     position: 'absolute',
@@ -54,7 +51,7 @@ const DialogTitle = withStyles(styles)((props) => {
 function TabContainer(props) {
   const { children } = props;
   return (
-    <Typography component="div" style={{ padding: 8 * 3 }}>
+    <Typography component="div" style={{ padding: 8 * 1 }}>
       {children}
     </Typography>
   );
@@ -65,10 +62,11 @@ TabContainer.propTypes = {
 };
 
 const DetailModal = (props) => {
-  const { show, data, handleClose } = props;
-  const [tab, setTab] = useState(0);
+  const {
+    show, data, handleClose, classes
+  } = props;
 
-  const property = useSelector(state => state.getIn(['property', 'building']));
+  const [tab, setTab] = useState(0);
   const handleTab = (event, value) => {
     setTab(value);
   };
@@ -83,8 +81,8 @@ const DetailModal = (props) => {
         maxWidth="xl"
         fullWidth
       >
-        <DialogTitle id="form-dialog-title" onClose={handleClose}>{data && data[0]}</DialogTitle>
-        <DialogContent>
+        <DialogTitle id="form-dialog-title" onClose={handleClose}>{data && data.name}</DialogTitle>
+        <DialogContent className={classes.root}>
           <AppBar position="static" color="default">
             <Tabs
               value={tab}
@@ -98,12 +96,14 @@ const DetailModal = (props) => {
               <Tab label="Reports" />
               <Tab label="Applications" />
               <Tab label="Claims" />
+              <Tab label="Policies" />
             </Tabs>
           </AppBar>
-          {tab === 0 && <TabContainer><Details /></TabContainer>}
-          {tab === 1 && <TabContainer><Reports /></TabContainer>}
-          {tab === 2 && <TabContainer><Applications /></TabContainer>}
-          {tab === 3 && <TabContainer><Claims /></TabContainer>}
+          {tab === 0 && <TabContainer><Details data={data} /></TabContainer>}
+          {tab === 1 && <TabContainer><Reports data={data} /></TabContainer>}
+          {tab === 2 && <TabContainer><Applications data={data} /></TabContainer>}
+          {tab === 3 && <TabContainer><Claims data={data} /></TabContainer>}
+          {tab === 4 && <TabContainer><Policies data={data} /></TabContainer>}
         </DialogContent>
       </Dialog>
     </Grid>
@@ -113,8 +113,9 @@ const DetailModal = (props) => {
 DetailModal.propTypes = {
   show: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
-  handleClose: PropTypes.object.isRequired
+  handleClose: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
 
-export default DetailModal;
+export default withStyles(styles)(DetailModal);

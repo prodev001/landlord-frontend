@@ -5,14 +5,15 @@ import {
 import {
   getBuilding,
   getApp,
-  getClaim
-} from './apis';
+  getClaim,
+  getPolicy
+} from './APIs/propertyAPIs';
 import types from '../constants/propertyConstant';
 import {
-  getBuildingAction,
   setBuildingAction,
-  getAppAction,
-  getClaimAction,
+  setAppAction,
+  setClaimAction,
+  setPolicyAction,
   errMsg
 } from '../actions/propertyActions';
 
@@ -25,19 +26,28 @@ export function* getBuildingSaga({ payload }) {
   }
 }
 
-export function* getAppSaga() {
+export function* getAppSaga({ payload }) {
   try {
-    const data = yield getApp();
-    yield put(getBuildingAction(data));
+    const data = yield getApp(payload);
+    yield put(setAppAction(data));
   } catch (error) {
     yield put(errMsg(error.response));
   }
 }
 
-export function* getClaimSaga() {
+export function* getClaimSaga({ payload }) {
   try {
-    const data = yield getClaim();
-    yield put(getBuildingAction(data));
+    const data = yield getClaim(payload);
+    yield put(setClaimAction(data));
+  } catch (error) {
+    yield put(errMsg(error.response));
+  }
+}
+
+export function* getPolicySaga() {
+  try {
+    const data = yield getPolicy();
+    yield put(setPolicyAction(data));
   } catch (error) {
     yield put(errMsg(error.response));
   }
@@ -55,10 +65,15 @@ export function* onGetClaim() {
   yield takeLatest(types.GET_CLAIM, getClaimSaga);
 }
 
+export function* onGetPolicy() {
+  yield takeLatest(types.GET_POLICY, getPolicySaga);
+}
+
 export function* propertySagas() {
   yield all([
     call(onGetBuilding),
     call(onGetApp),
     call(onGetClaim),
+    call(onGetPolicy)
   ]);
 }

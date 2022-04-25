@@ -5,7 +5,7 @@ import {
   logIn,
   register,
   verifyEmail
-} from './apis';
+} from './APIs/authAPIs';
 import {
   emailVerifySuccess,
   logInFailure,
@@ -28,6 +28,7 @@ export function* verifyEmailWithCredential({ email }) {
 }
 
 export function* logInWithCredentials({ payload: { email, password } }) {
+  console.log('xxxxxxxxxxxx', email);
   try {
     const user = yield logIn(email, password);
     setToken(user.accessToken);

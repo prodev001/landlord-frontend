@@ -13,6 +13,18 @@ const lightPalette = {
         dark: '#C2185B',
         contrastText: '#fff',
       },
+      success: {
+        light: '#F1F8E9',
+        main: '#689F38',
+        dark: '#33691E',
+        contrastText: '#fff',
+      },
+      error: {
+        light: '#FFF8E1',
+        main: '#FF8F00',
+        dark: '#E65100',
+        contrastText: '#fff',
+      }
     },
   },
   greenOrangeTheme: {

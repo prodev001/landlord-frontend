@@ -103,7 +103,7 @@ function RegisterForm(props) {
           <div className="d-flex align-items-center">
             <FormControl className={classes.formControl}>
               <Field
-                model={userInfo && userInfo.get('role')}
+                // model={userInfo && userInfo.get('role')}
                 name="role"
                 component={TextFieldRedux}
                 placeholder="User Role"
